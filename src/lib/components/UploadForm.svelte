@@ -1,6 +1,21 @@
 <script lang="ts">
-  import { each } from 'svelte/internal';
-import {Schools} from '../../db';
+  import firebaseConfig from "../../env";
+	import { FirebaseApp, initializeApp } from "firebase/app";
+	import { Schools, uploadFile, Post } from '../../db';
+	import { onMount } from 'svelte';
+	import { FirebaseStorage, getStorage } from "firebase/storage";
+	import { Firestore, getFirestore } from "firebase/firestore";
+
+	let app: FirebaseApp;
+	let storage: FirebaseStorage;
+	let firestore: Firestore;
+	let success = false;
+
+	onMount(async () => {
+		app = initializeApp(firebaseConfig);
+		storage = getStorage(app);
+		firestore = getFirestore(app);
+	});
 
 	let avatar: string | null | undefined;
 	let fileinput: HTMLInputElement;
@@ -15,8 +30,9 @@ import {Schools} from '../../db';
 		};
 	}
 
-  function uploadToStore() {
-
+  async function uploadToStore() {
+		let post: Post = {school: 'CSUF', image: fileinput.files.item(0)};
+		success = await uploadFile(storage, post);
   }
 </script>
 
@@ -42,6 +58,12 @@ import {Schools} from '../../db';
   <button on:click="{uploadToStore}">
     Submit
   </button>
+
+	{#if success}
+		<p>
+			Your file was uploaded successefully!
+		</p>
+	{/if}
 </div>
 
 <style>
