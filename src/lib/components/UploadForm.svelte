@@ -40,7 +40,7 @@
 	<h1>Upload Image</h1>
 
 	{#if avatar}
-		<img class="avatar" src={avatar} alt="d" />
+		<img class="file" src={avatar} alt="d" />
 	{/if}
 
 	<button class="upload" on:click={() => {fileinput.click();}}>
@@ -78,13 +78,9 @@
 		cursor: pointer;
 	}
 
-	.avatar {
+	.file {
 		display: flex;
 		height: 200px;
 		width: 200px;
 	}
-
-  ul {
-    list-style: none;
-  }
 </style>
