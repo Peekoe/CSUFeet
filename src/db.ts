@@ -30,10 +30,10 @@ export let Schools = [
 
 export type Post = {
 	description: string;
-  image: File;
-  likes: number;
-  pending: boolean;
-  school: string;
+	image: File;
+	likes: number;
+	pending: boolean;
+	school: string;
 };
 
 export async function uploadToFirestore(
