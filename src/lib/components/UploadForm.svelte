@@ -1,7 +1,7 @@
 <script lang="ts">
 	import firebaseConfig from '../../env';
 	import { FirebaseApp, initializeApp } from 'firebase/app';
-	import { uploadPost } from '../../db';
+	import { uploadPost, Schools } from '../../db';
 	import type { Post } from '../../db';
 	import { onMount } from 'svelte';
 	import { FirebaseStorage, getStorage } from 'firebase/storage';
@@ -11,6 +11,11 @@
 	let storage: FirebaseStorage;
 	let db: Firestore;
 	let success = false;
+
+	let avatar: string | null | undefined;
+	let fileinput: HTMLInputElement;
+	let description: string;
+	let school: string;
 
 	onMount(async () => {
 		app = initializeApp(firebaseConfig);
@@ -24,15 +29,11 @@
 			image: fileinput.files.item(0),
 			likes: 0,
 			pending: true,
-			school: 'Fullerton'
+			school: school
 		};
 		let result = await uploadPost(storage, db, post);
 		success = result.success;
 	}
-
-	let avatar: string | null | undefined;
-	let fileinput: HTMLInputElement;
-	let description: string;
 
 	function onFileSelected(e) {
 		let image: Blob = e.target.files[0];
@@ -48,6 +49,12 @@
 	<h1>Upload Image</h1>
 
 	<input class="desc" bind:value={description}>
+
+	<select name="schools" id="school-select" bind:value="{school}">
+		{#each Schools as school}
+			<option value="{school}">{school}</option>
+		{/each}
+	</select>
 
 	{#if avatar}
 		<img class="file" src={avatar} alt="d" />
@@ -96,6 +103,7 @@
 	}
 
 	.desc {
+		width: 10vw;
 		margin: 1rem;
 	}
 </style>
