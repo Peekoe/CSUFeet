@@ -1,10 +1,10 @@
 <script lang="ts">
-  import firebaseConfig from "../../env";
-	import { FirebaseApp, initializeApp } from "firebase/app";
-	import { Schools, uploadFile, Post } from '../../db';
+	import firebaseConfig from '../../env';
+	import { FirebaseApp, initializeApp } from 'firebase/app';
+	import { uploadPost, Post } from '../../db';
 	import { onMount } from 'svelte';
-	import { FirebaseStorage, getStorage } from "firebase/storage";
-	import { Firestore, getFirestore } from "firebase/firestore";
+	import { FirebaseStorage, getStorage } from 'firebase/storage';
+	import { Firestore, getFirestore } from 'firebase/firestore';
 
 	let app: FirebaseApp;
 	let storage: FirebaseStorage;
@@ -30,10 +30,17 @@
 		};
 	}
 
-  async function uploadToStore() {
-		let post: Post = {school: 'CSUF', image: fileinput.files.item(0)};
-		success = await uploadFile(storage, post);
-  }
+	async function uploadToStore() {
+		let post: Post = {
+			description: 'test',
+			image: fileinput.files.item(0),
+			likes: 0,
+			pending: true,
+			school: 'Fullerton'
+		};
+		let result = await uploadPost(storage, post);
+		success = result.success;
+	}
 </script>
 
 <div id="app">
@@ -43,7 +50,12 @@
 		<img class="file" src={avatar} alt="d" />
 	{/if}
 
-	<button class="upload" on:click={() => {fileinput.click();}}>
+	<button
+		class="upload"
+		on:click={() => {
+			fileinput.click();
+		}}
+	>
 		Upload
 	</button>
 
@@ -55,14 +67,10 @@
 		bind:this={fileinput}
 	/>
 
-  <button on:click="{uploadToStore}">
-    Submit
-  </button>
+	<button on:click={uploadToStore}> Submit </button>
 
 	{#if success}
-		<p>
-			Your file was uploaded successefully!
-		</p>
+		<p>Your file was uploaded successefully!</p>
 	{/if}
 </div>
 
