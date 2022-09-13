@@ -1,50 +1,53 @@
 <script lang="ts">
 	import firebaseConfig from '../../env';
 	import { FirebaseApp, initializeApp } from 'firebase/app';
-	import { uploadPost, Post } from '../../db';
+	import { uploadPost } from '../../db';
+	import type { Post } from '../../db';
 	import { onMount } from 'svelte';
 	import { FirebaseStorage, getStorage } from 'firebase/storage';
 	import { Firestore, getFirestore } from 'firebase/firestore';
 
 	let app: FirebaseApp;
 	let storage: FirebaseStorage;
-	let firestore: Firestore;
+	let db: Firestore;
 	let success = false;
 
 	onMount(async () => {
 		app = initializeApp(firebaseConfig);
 		storage = getStorage(app);
-		firestore = getFirestore(app);
+		db = getFirestore(app);
 	});
+
+	async function uploadToStore() {
+		let post: Post = {
+			description: description,
+			image: fileinput.files.item(0),
+			likes: 0,
+			pending: true,
+			school: 'Fullerton'
+		};
+		let result = await uploadPost(storage, db, post);
+		success = result.success;
+	}
 
 	let avatar: string | null | undefined;
 	let fileinput: HTMLInputElement;
+	let description: string;
 
 	function onFileSelected(e) {
 		let image: Blob = e.target.files[0];
 		let reader = new FileReader();
 		reader.readAsDataURL(image);
 		reader.onload = (e) => {
-			var dec = new TextDecoder();
 			avatar = e?.target?.result?.toString();
 		};
-	}
-
-	async function uploadToStore() {
-		let post: Post = {
-			description: 'test',
-			image: fileinput.files.item(0),
-			likes: 0,
-			pending: true,
-			school: 'Fullerton'
-		};
-		let result = await uploadPost(storage, post);
-		success = result.success;
 	}
 </script>
 
 <div id="app">
 	<h1>Upload Image</h1>
+
+	<input class="desc" bind:value={description}>
 
 	{#if avatar}
 		<img class="file" src={avatar} alt="d" />
@@ -90,5 +93,9 @@
 		display: flex;
 		height: 200px;
 		width: 200px;
+	}
+
+	.desc {
+		margin: 1rem;
 	}
 </style>
