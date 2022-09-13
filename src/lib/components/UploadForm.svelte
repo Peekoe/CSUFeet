@@ -1,49 +1,71 @@
 <script lang="ts">
-  import firebaseConfig from "../../env";
-	import { FirebaseApp, initializeApp } from "firebase/app";
-	import { Schools, uploadFile, Post } from '../../db';
+	import firebaseConfig from '../../env';
+	import { FirebaseApp, initializeApp } from 'firebase/app';
+	import { uploadPost, Schools } from '../../db';
+	import type { Post } from '../../db';
 	import { onMount } from 'svelte';
-	import { FirebaseStorage, getStorage } from "firebase/storage";
-	import { Firestore, getFirestore } from "firebase/firestore";
+	import { FirebaseStorage, getStorage } from 'firebase/storage';
+	import { Firestore, getFirestore } from 'firebase/firestore';
 
 	let app: FirebaseApp;
 	let storage: FirebaseStorage;
-	let firestore: Firestore;
+	let db: Firestore;
 	let success = false;
+
+	let avatar: string | null | undefined;
+	let fileinput: HTMLInputElement;
+	let description: string;
+	let school: string;
 
 	onMount(async () => {
 		app = initializeApp(firebaseConfig);
 		storage = getStorage(app);
-		firestore = getFirestore(app);
+		db = getFirestore(app);
 	});
 
-	let avatar: string | null | undefined;
-	let fileinput: HTMLInputElement;
+	async function uploadToStore() {
+		let post: Post = {
+			description: description,
+			image: fileinput.files.item(0),
+			likes: 0,
+			pending: true,
+			school: school
+		};
+		let result = await uploadPost(storage, db, post);
+		success = result.success;
+	}
 
 	function onFileSelected(e) {
 		let image: Blob = e.target.files[0];
 		let reader = new FileReader();
 		reader.readAsDataURL(image);
 		reader.onload = (e) => {
-			var dec = new TextDecoder();
 			avatar = e?.target?.result?.toString();
 		};
 	}
-
-  async function uploadToStore() {
-		let post: Post = {school: 'CSUF', image: fileinput.files.item(0)};
-		success = await uploadFile(storage, post);
-  }
 </script>
 
 <div id="app">
 	<h1>Upload Image</h1>
 
+	<input class="desc" bind:value={description}>
+
+	<select name="schools" id="school-select" bind:value="{school}">
+		{#each Schools as school}
+			<option value="{school}">{school}</option>
+		{/each}
+	</select>
+
 	{#if avatar}
 		<img class="file" src={avatar} alt="d" />
 	{/if}
 
-	<button class="upload" on:click={() => {fileinput.click();}}>
+	<button
+		class="upload"
+		on:click={() => {
+			fileinput.click();
+		}}
+	>
 		Upload
 	</button>
 
@@ -55,14 +77,10 @@
 		bind:this={fileinput}
 	/>
 
-  <button on:click="{uploadToStore}">
-    Submit
-  </button>
+	<button on:click={uploadToStore}> Submit </button>
 
 	{#if success}
-		<p>
-			Your file was uploaded successefully!
-		</p>
+		<p>Your file was uploaded successefully!</p>
 	{/if}
 </div>
 
@@ -82,5 +100,10 @@
 		display: flex;
 		height: 200px;
 		width: 200px;
+	}
+
+	.desc {
+		width: 10vw;
+		margin: 1rem;
 	}
 </style>
