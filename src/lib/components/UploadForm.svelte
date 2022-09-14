@@ -11,6 +11,7 @@
 	let storage: FirebaseStorage;
 	let db: Firestore;
 	let success = false;
+	let errorMsg: string = '';
 
 	let avatar: string | null | undefined;
 	let fileinput: HTMLInputElement;
@@ -33,6 +34,7 @@
 		};
 		let result = await uploadPost(storage, db, post);
 		success = result.success;
+		errorMsg = result.message;
 	}
 
 	function onFileSelected(e) {
@@ -48,6 +50,7 @@
 <div id="app">
 	<h1>Upload Image</h1>
 
+	<p>Description:</p>
 	<input class="desc" bind:value={description}>
 
 	<select name="schools" id="school-select" bind:value="{school}">
@@ -81,6 +84,8 @@
 
 	{#if success}
 		<p>Your file was uploaded successefully!</p>
+	{:else}
+		<p>{errorMsg}</p>
 	{/if}
 </div>
 
@@ -90,6 +95,14 @@
 		align-items: center;
 		justify-content: center;
 		flex-flow: column;
+	}
+
+	button {
+		margin: 0.5rem;
+	}
+
+	#school-select {
+		margin: 0.5rem;
 	}
 
 	.upload {
@@ -104,6 +117,7 @@
 
 	.desc {
 		width: 10vw;
-		margin: 1rem;
+		margin-top: 0.1rem;
+		margin-bottom: 1rem;
 	}
 </style>
