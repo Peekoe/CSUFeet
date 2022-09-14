@@ -1,11 +1,12 @@
 <script lang="ts">
 	import firebaseConfig from '../../env';
-	import { FirebaseApp, initializeApp } from 'firebase/app';
+	import type { FirebaseApp } from 'firebase/app';
+	import type { FirebaseStorage } from 'firebase/storage';
+	import type { Firestore } from 'firebase/firestore';
 	import { uploadPost, Schools } from '../../db';
 	import type { Post } from '../../db';
 	import { onMount } from 'svelte';
-	import { FirebaseStorage, getStorage } from 'firebase/storage';
-	import { Firestore, getFirestore } from 'firebase/firestore';
+	import { getFirebaseApp, getDb, getFirebaseStorage } from '../../init';
 
 	let app: FirebaseApp;
 	let storage: FirebaseStorage;
@@ -19,9 +20,9 @@
 	let school: string;
 
 	onMount(async () => {
-		app = initializeApp(firebaseConfig);
-		storage = getStorage(app);
-		db = getFirestore(app);
+		app = getFirebaseApp();
+		storage = getFirebaseStorage();
+		db = getDb();
 	});
 
 	async function uploadToStore() {
@@ -51,11 +52,11 @@
 	<h1>Upload Image</h1>
 
 	<p>Description:</p>
-	<input class="desc" bind:value={description}>
+	<input class="desc" bind:value={description} />
 
-	<select name="schools" id="school-select" bind:value="{school}">
+	<select name="schools" id="school-select" bind:value={school}>
 		{#each Schools as school}
-			<option value="{school}">{school}</option>
+			<option value={school}>{school}</option>
 		{/each}
 	</select>
 
