@@ -8,3 +8,4 @@ node_modules
 !.env.example
 server/ServiceAccountKey.json
 src/env.ts
+*.*.un~
