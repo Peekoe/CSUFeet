@@ -19,11 +19,14 @@
 		posts = await fetchTopPosts(db, storage);
 	});
 </script>
-
-<div class="container">
-	{#each posts as post}
-		<Post data = {post} />
-	{/each}
+<div class="{posts.length == 0 ? 'loading' : 'container'}">
+	{#if posts.length == 0}
+		<progress class="progress is-danger" max="100">30%</progress>
+	{:else}
+		{#each posts as post}
+			<Post data = {post} />
+		{/each}
+	{/if}
 </div>
 
 <style>
@@ -31,5 +34,16 @@
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
+	}
+
+	.loading {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100vh;
+	}
+
+	progress {
+		max-width: 30%;
 	}
 </style>
