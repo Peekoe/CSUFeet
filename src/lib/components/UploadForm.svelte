@@ -64,7 +64,7 @@
 	{/if}
 
 	<button
-		class="upload"
+		class="button"
 		on:click={() => {
 			fileinput.click();
 		}}
@@ -80,7 +80,7 @@
 		bind:this={fileinput}
 	/>
 
-	<button on:click={uploadToStore}> Submit </button>
+	<button class="button" on:click={uploadToStore}> Submit </button>
 
 	{#if success}
 		<p>Your file was uploaded successefully!</p>
@@ -103,10 +103,6 @@
 
 	#school-select {
 		margin: 0.5rem;
-	}
-
-	.upload {
-		cursor: pointer;
 	}
 
 	.file {

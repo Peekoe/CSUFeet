@@ -22,12 +22,7 @@
 
 <div class="container">
 	{#each posts as post}
-		<Post
-			url={post.image.toString()}
-			name="test"
-			description={post.description}
-			school={post.school}
-		/>
+		<Post data = {post} />
 	{/each}
 </div>
 
@@ -35,5 +30,6 @@
 	.container {
 		display: flex;
 		flex-direction: row;
+		flex-wrap: wrap;
 	}
 </style>
