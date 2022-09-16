@@ -1,7 +1,7 @@
 <script lang="ts">
-  import UploadForm from '$lib/components/UploadForm.svelte';
 </script>
 
-<h1>Welcome to CSUFeet!</h1>
+<a href="/home">Home</a>
+<a href="/upload">Upload</a>
 
-<UploadForm />
+<h1>Welcome to CSUFeet!</h1>

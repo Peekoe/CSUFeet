@@ -1,10 +1,9 @@
 <script lang="ts">
-	import firebaseConfig from '../../env';
 	import type { FirebaseApp } from 'firebase/app';
 	import type { FirebaseStorage } from 'firebase/storage';
 	import type { Firestore } from 'firebase/firestore';
+	import type { PostDTO } from '../../db';
 	import { uploadPost, Schools } from '../../db';
-	import type { Post } from '../../db';
 	import { onMount } from 'svelte';
 	import { getFirebaseApp, getDb, getFirebaseStorage } from '../../init';
 
@@ -26,7 +25,7 @@
 	});
 
 	async function uploadToStore() {
-		let post: Post = {
+		let post: PostDTO = {
 			description: description,
 			image: fileinput.files.item(0),
 			likes: 0,
@@ -38,7 +37,7 @@
 		errorMsg = result.message;
 	}
 
-	function onFileSelected(e) {
+	function onFileSelected(e: any) {
 		let image: Blob = e.target.files[0];
 		let reader = new FileReader();
 		reader.readAsDataURL(image);

@@ -11,7 +11,7 @@ import {
 	limit,
   orderBy
 } from 'firebase/firestore';
-import { FirebaseStorage, getStorage, ref, uploadBytes } from 'firebase/storage';
+import { FirebaseStorage, getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 export let Schools = [
 	'Bakersfield',
@@ -39,9 +39,9 @@ export let Schools = [
 	'Stanislaus'
 ];
 
-export type Post = {
+export type PostDTO = {
 	description: string;
-	image: File;
+	image: File | string;
 	likes: number;
 	pending: boolean;
 	school: string;
@@ -60,13 +60,13 @@ export class ReturnResult {
 export async function uploadPost(
 	storage: FirebaseStorage,
 	db: Firestore,
-	post: Post
+	post: PostDTO
 ): Promise<ReturnResult> {
 	console.log(post.description);
 	if (!Schools.includes(post.school)) {
 		return new ReturnResult(false, 'Invalid school name');
 	}
-	const pendingPath = uploadPath(post.image.name);
+	const pendingPath = uploadPath((post.image as File).name);
 
 	const firestoreResult = await uploadToFirestore(db, post, pendingPath);
 	if (!firestoreResult.success) return logAndReturnResult(firestoreResult.message);
@@ -82,7 +82,7 @@ export async function uploadPost(
 
 async function uploadToFirestore(
 	db: Firestore,
-	post: Post,
+	post: PostDTO,
 	uploadPath: string
 ): Promise<ReturnResult> {
 	try {
@@ -100,10 +100,10 @@ async function uploadToFirestore(
 	}
 }
 
-async function uploadToStorage(storage: FirebaseStorage, post: Post, pendingPath: string) {
+async function uploadToStorage(storage: FirebaseStorage, post: PostDTO, pendingPath: string) {
 	const pendingRef = ref(storage, pendingPath);
 	try {
-		const result = await uploadBytes(pendingRef, post.image);
+		const result = await uploadBytes(pendingRef, post.image as File);
 		return new ReturnResult(result ? true : false, 'Image upload was successful');
 	} catch (error) {
 		console.error(error);
@@ -121,10 +121,30 @@ async function removeHangingPost(db: Firestore, path: string) {
 	}
 }
 
-export async function fetchTopPosts(db: Firestore, storage: FirebaseStorage) {
+export async function fetchTopPosts(db: Firestore, storage: FirebaseStorage): Promise<PostDTO[]> {
 	let posts = collection(db, 'posts');
-	let q = query(posts, where('pending', '==', false), orderBy("created", "desc"), limit(9));
+	// add index for orderby later
+	let q = query(posts, where('pending', '==', false), limit(9));
+	console.info('Make query for docs');
 	let result = await getDocs(q);
+	console.log(result);
+	let mapped = result.docs.map(d => d.data() as PostDTO);
+	console.log(mapped);
+	mapped = await getPostImages(storage, mapped);
+	return mapped;
+}
+
+async function getPostImages(storage: FirebaseStorage, posts: PostDTO[]) {
+	for (const post of posts) {
+		try {
+			let img = ref(storage, post.image as string);
+			post.image = await getDownloadURL(img);
+		} catch (error) {
+			console.error(`Error on ${post.image}`, error);
+		}
+	}
+
+	return posts;
 }
 
 function uploadPath(imgName: string): string {
