@@ -30,7 +30,8 @@
 			image: fileinput.files.item(0),
 			likes: 0,
 			pending: true,
-			school: school
+			school: school,
+			created: new Date()
 		};
 		let result = await uploadPost(storage, db, post);
 		success = result.success;
