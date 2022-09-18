@@ -9,7 +9,7 @@ import {
 	where,
 	query,
 	limit,
-  orderBy
+	orderBy
 } from 'firebase/firestore';
 import { FirebaseStorage, getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
@@ -130,7 +130,7 @@ export async function fetchTopPosts(db: Firestore, storage: FirebaseStorage): Pr
 	console.info('Make query for docs');
 	let result = await getDocs(q);
 	console.log(result);
-	let mapped = result.docs.map(d => d.data() as PostDTO);
+	let mapped = result.docs.map((d) => d.data() as PostDTO);
 	console.log(mapped);
 	mapped = await getPostImages(storage, mapped);
 	return mapped;

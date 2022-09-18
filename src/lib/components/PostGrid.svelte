@@ -5,7 +5,7 @@
 	import { onMount } from 'svelte';
 	import { getFirebaseApp, getDb, getFirebaseStorage } from '../../init';
 	import { PostDTO, fetchTopPosts } from '../../db';
-	import Post from '../components/Post.svelte';
+	import Post from './Post.svelte';
 
 	let app: FirebaseApp;
 	let storage: FirebaseStorage;
@@ -19,12 +19,13 @@
 		posts = await fetchTopPosts(db, storage);
 	});
 </script>
-<div class="{posts.length == 0 ? 'loading' : 'container'}">
+
+<div class={posts.length == 0 ? 'loading' : 'container'}>
 	{#if posts.length == 0}
 		<progress class="progress is-danger" max="100">30%</progress>
 	{:else}
 		{#each posts as post}
-			<Post data = {post} />
+			<Post data={post} />
 		{/each}
 	{/if}
 </div>

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import UploadForm from "$lib/components/UploadForm.svelte";
+	import UploadForm from '$lib/components/UploadForm.svelte';
 </script>
 
 <a href="/">Main</a>
