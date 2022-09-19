@@ -67,7 +67,7 @@ export async function uploadPost(
 	if (!Schools.includes(post.school)) {
 		return new ReturnResult(false, 'Invalid school name');
 	}
-	const pendingPath = uploadPath((post.image as File).name);
+	const pendingPath = uploadPath();
 
 	const firestoreResult = await uploadToFirestore(db, post, pendingPath);
 	if (!firestoreResult.success) return logAndReturnResult(firestoreResult.message);
