@@ -11,6 +11,7 @@
 	let storage: FirebaseStorage;
 	let db: Firestore;
 	let success = false;
+	let pending = false;
 	let errorMsg: string = '';
 
 	let avatar: string | null | undefined;
@@ -25,6 +26,7 @@
 	});
 
 	async function uploadToStore() {
+		pending = true;
 		let post: PostDTO = {
 			description: description,
 			image: fileinput.files.item(0),
@@ -36,6 +38,10 @@
 		let result = await uploadPost(storage, db, post);
 		success = result.success;
 		errorMsg = result.message;
+
+		if (success) {
+			pending = false;
+		}
 	}
 
 	function onFileSelected(e: any) {
@@ -49,23 +55,22 @@
 </script>
 
 <div id="app">
-	<h1>Upload Image</h1>
-
-	<p>Description:</p>
-	<input class="desc" bind:value={description} />
-
-	<select name="schools" id="school-select" bind:value={school}>
-		{#each Schools as school}
-			<option value={school}>{school}</option>
-		{/each}
-	</select>
-
 	{#if avatar}
-		<img class="file" src={avatar} alt="d" />
+		<img class="file" src={avatar} alt="Uploaded" />
 	{/if}
 
+	<input class="desc input is-dark" type="text" placeholder="Description" bind:value={description} />
+
+	<div name="schools" class="select is-rounded is-dark school-select">
+		<select id="school-select" bind:value={school}>
+			{#each Schools as school}
+				<option value={school}>{school}</option>
+			{/each}
+		</select>
+	</div>
+
 	<button
-		class="button"
+		class="button is-rounded is-dark"
 		on:click={() => {
 			fileinput.click();
 		}}
@@ -81,12 +86,14 @@
 		bind:this={fileinput}
 	/>
 
-	<button class="button" on:click={uploadToStore}> Submit </button>
-
-	{#if success}
-		<p>Your file was uploaded successefully!</p>
+	{#if !success && !pending}
+		<button class="button is-rounded is-dark" on:click={uploadToStore}>Submit</button>
+	{:else if pending}
+		<button class="button is-loading is-rounded is-dark">Loading</button>
+	{:else if !success}
+		<button class="button is-danger is-dark" on:click={uploadToStore}>Error</button>
 	{:else}
-		<p>{errorMsg}</p>
+		<button class="button is-success is-rounded is-dark">Success</button>
 	{/if}
 </div>
 
@@ -100,10 +107,15 @@
 
 	button {
 		margin: 0.5rem;
+		width: 30vw;
+	}
+
+	.school-select {
+		margin: 0.5rem;
 	}
 
 	#school-select {
-		margin: 0.5rem;
+		width: 30vw;
 	}
 
 	.file {
@@ -113,7 +125,7 @@
 	}
 
 	.desc {
-		width: 10vw;
+		width: 30vw;
 		margin-top: 0.1rem;
 		margin-bottom: 1rem;
 	}

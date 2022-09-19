@@ -150,7 +150,7 @@ async function getPostImages(storage: FirebaseStorage, posts: PostDTO[]) {
 }
 
 function uploadPath(imgName: string): string {
-	return `/pendingUploads/${uuidv4()}}`;
+	return `/pendingUploads/${uuidv4()}`;
 }
 
 function logAndReturnResult(msg: string): ReturnResult {
