@@ -33,7 +33,7 @@
 			likes: 0,
 			pending: true,
 			school: school,
-			created: new Date()
+			created: Date.now()
 		};
 		let result = await uploadPost(storage, db, post);
 		success = result.success;

@@ -45,7 +45,8 @@ export type PostDTO = {
 	likes: number;
 	pending: boolean;
 	school: string;
-	created: Date;
+	// it's date but number easier
+	created: number;
 };
 
 export class ReturnResult {

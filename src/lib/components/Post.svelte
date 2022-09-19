@@ -4,18 +4,11 @@
 	let url = data.image as string;
 </script>
 
-<!-- <div class="post">
-	<img class="image" src="{url}" alt="{name}">
-	<div class="text">
-		<p>{description}</p>
-		<p>{school}</p>
-	</div>
-</div> -->
-
 <div class="card">
 	<div class="card-image">
 		<img src={url} alt="Post" />
 	</div>
+	
 	<div class="card-content">
 		<div class="media">
 			<div class="media-content">
@@ -36,6 +29,11 @@
 		margin: 1rem;
 		min-width: 10vw;
 		/* max-height: 10vh; */
+	}
+
+	.card-image {
+		display: flex;
+		justify-content: center;
 	}
 
 	img {
