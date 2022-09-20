@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Footer from "$lib/components/Footer.svelte";
-  import Navbar from "$lib/components/Navbar.svelte";
+  import Footer from '$lib/components/Footer.svelte';
+  import Navbar from '$lib/components/Navbar.svelte';
 </script>
 
 <body>
@@ -10,20 +10,15 @@
 
   <section class="hero is-large is-info" id="hero">
     <div class="hero-body">
-      <p class="title">
-        CSUFeet
-      </p>
-      <p class="subtitle">
-        The best place to post feet online
-      </p>
+      <p class="title">CSUFeet</p>
+      <p class="subtitle">The best place to post feet online</p>
     </div>
   </section>
 
   <footer>
-    <Footer />  
+    <Footer />
   </footer>
 </body>
-
 
 <style>
   body {
@@ -35,12 +30,21 @@
     flex-direction: column;
   }
 
-  header, footer {
+  header,
+  footer {
     flex: none;
   }
 
   #hero {
-    background-color: #00274C;
+    background: hsla(28, 100%, 50%, 1);
+    background: linear-gradient(0deg, hsla(209, 100%, 15%, 1) 50%, hsla(28, 100%, 50%, 1) 50%);
+    background: -moz-linear-gradient(0deg, hsla(209, 100%, 15%, 1) 50%, hsla(28, 100%, 50%, 1) 50%);
+    background: -webkit-linear-gradient(
+      0deg,
+      hsla(209, 100%, 15%, 1) 50%,
+      hsla(28, 100%, 50%, 1) 50%
+    );
+
     flex: auto;
   }
 

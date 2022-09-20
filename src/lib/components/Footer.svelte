@@ -2,7 +2,7 @@
   <div class="content">
     <span>
       <img src="src/feet.svg" alt="feet logo" height="24" width="24" />
-      <strong style="margin-left:3px;">CSUFeet 2022</strong> 
+      <strong style="margin-left:3px;">CSUFeet 2022</strong>
     </span>
   </div>
 </footer>
