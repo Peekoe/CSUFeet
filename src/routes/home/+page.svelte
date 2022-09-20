@@ -1,10 +1,11 @@
 <script lang="ts">
-  import PostGrid from '$lib/components/PostGrid.svelte';
+  import Footer from '$lib/components/Footer.svelte';
+import Navbar from '$lib/components/Navbar.svelte';
+import PostGrid from '$lib/components/PostGrid.svelte';
 </script>
 
-<a href="/">Main</a>
-<a href="/upload">Upload</a>
-
-<h1>Welcome to CSUFeet!</h1>
+<Navbar />
 
 <PostGrid />
+
+<Footer />

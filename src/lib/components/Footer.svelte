@@ -1,4 +1,4 @@
-<footer class="footer">
+<footer>
   <div class="content">
     <span>
       <img src="src/feet.svg" alt="feet logo" height="24" width="24" />
@@ -8,8 +8,10 @@
 </footer>
 
 <style>
-  .footer {
+  footer {
     padding: 2rem 1.5rem;
+    position: relative;
+    bottom: 0px;
   }
 
   span {

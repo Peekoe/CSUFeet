@@ -4,7 +4,9 @@
 </script>
 
 <body>
-  <Navbar />
+  <header>
+    <Navbar />
+  </header>
 
   <section class="hero is-large is-info" id="hero">
     <div class="hero-body">
@@ -17,19 +19,37 @@
     </div>
   </section>
 
-  <Footer />  
+  <footer>
+    <Footer />  
+  </footer>
 </body>
 
 
 <style>
-   body {
+  body {
     margin: 0;
     padding: 0;
     height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header, footer {
+    flex: none;
   }
 
   #hero {
-    background-color: darkred;
+    background-color: #00274C;
+    flex: auto;
+  }
+
+  .hero-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    height: 100%;
   }
 
   .title {

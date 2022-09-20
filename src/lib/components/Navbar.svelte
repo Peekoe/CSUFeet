@@ -15,7 +15,7 @@
   <div class="navbar-end">
     <div class="navbar-item">
       <div class="buttons">
-        <a class="button is-primary">
+        <a href="/upload" class="button is-primary">
           <strong>Upload</strong>
         </a>
       </div>
