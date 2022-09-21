@@ -1,6 +1,8 @@
-import { initializeApp, getApps, FirebaseApp } from 'firebase/app';
+import type { FirebaseApp } from 'firebase/app';
+import { initializeApp, getApps} from 'firebase/app';
 import { getFirestore, enableIndexedDbPersistence, Firestore } from 'firebase/firestore';
-import { FirebaseStorage, getStorage } from 'firebase/storage';
+import type { FirebaseStorage } from 'firebase/storage';
+import { getStorage } from 'firebase/storage';
 import firebaseConfig from './env';
 
 let app: FirebaseApp = null;
@@ -9,7 +11,7 @@ let storage: FirebaseStorage = null;
 
 const browser = typeof window !== 'undefined';
 
-export function getFirebaseApp() {
+export function getFirebaseApp(): FirebaseApp {
   if (app) {
     return app;
   }

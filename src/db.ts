@@ -8,10 +8,10 @@ import {
   getDocs,
   where,
   query,
-  limit,
-  orderBy
+  limit
 } from 'firebase/firestore';
-import { FirebaseStorage, getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import type { FirebaseStorage } from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 export let Schools = [
   'Bakersfield',

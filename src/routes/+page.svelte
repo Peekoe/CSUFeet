@@ -4,9 +4,7 @@
 </script>
 
 <body>
-  <header>
-    <Navbar />
-  </header>
+  <Navbar />
 
   <section class="hero is-large is-info" id="hero">
     <div class="hero-body">
@@ -15,9 +13,7 @@
     </div>
   </section>
 
-  <footer>
-    <Footer />
-  </footer>
+  <Footer />
 </body>
 
 <style>
@@ -28,11 +24,6 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-  }
-
-  header,
-  footer {
-    flex: none;
   }
 
   #hero {
