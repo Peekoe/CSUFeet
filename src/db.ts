@@ -94,7 +94,7 @@ async function uploadToFirestore(
       likes: 0,
       school: post.school,
       pending: true,
-      created: new Date()
+      created: post.created
     });
 
     return new ReturnResult(true, 'File upload successful');

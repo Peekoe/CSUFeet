@@ -110,6 +110,10 @@
     flex-flow: column;
   }
 
+  img {
+    margin: 1rem;
+  }
+
   button {
     margin: 0.5rem;
     width: 30vw;
