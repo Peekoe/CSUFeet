@@ -3,8 +3,9 @@
   import type { Firestore } from 'firebase/firestore';
   import type { FirebaseStorage } from 'firebase/storage';
   import { onMount } from 'svelte';
-  import { getFirebaseApp, getDb, getFirebaseStorage } from '../../init';
-  import { PostDTO, fetchTopPosts } from '../../db';
+  import { getFirebaseApp, getDb, getFirebaseStorage } from '$src/init';
+  import type { PostDTO } from '$src/db';
+  import { fetchTopPosts } from '$src/db';
   import Post from './Post.svelte';
 
   let app: FirebaseApp;
