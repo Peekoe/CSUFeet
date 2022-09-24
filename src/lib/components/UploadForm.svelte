@@ -26,10 +26,19 @@
   });
 
   async function uploadToStore() {
+    errorMsg = '';
+    const uploadImage = fileinput.files.item(0);
+    
+    if (uploadImage.size / 1024 / 1024 >= 2.5) // 2.5 MiB for bytes.
+    {
+      errorMsg = "Image must be less than 2.5 MB"
+      return;
+    }
+
     pending = true;
     let post: PostDTO = {
       description: description,
-      image: fileinput.files.item(0),
+      image: uploadImage,
       likes: 0,
       pending: true,
       school: school,
@@ -99,6 +108,12 @@
     <button class="button is-danger is-dark" on:click={uploadToStore}>Error</button>
   {:else}
     <button class="button is-success is-rounded is-dark">Success</button>
+  {/if}
+
+  {#if errorMsg !== ''}
+    <div class="notification is-danger">
+      {errorMsg}
+    </div>
   {/if}
 </div>
 
