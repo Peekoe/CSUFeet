@@ -36,7 +36,9 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    align-items: center;
+    /* align-items:baseline; */
+    overflow-y: auto;
+    width: 100vw;
   }
 
   .loading {
@@ -48,5 +50,13 @@
 
   progress {
     max-width: 30%;
+  }
+
+  @media screen and (max-width: 800px) {
+    .container { 
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
   }
 </style>
