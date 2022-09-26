@@ -127,7 +127,7 @@ async function removeHangingPost(db: Firestore, path: string) {
 export async function fetchTopPosts(db: Firestore, storage: FirebaseStorage): Promise<PostDTO[]> {
   let posts = collection(db, 'posts');
   // add index for orderby later
-  let q = query(posts, where('pending', '==', false), limit(9));
+  let q = query(posts, where('pending', '==', false), limit(24));
   console.info('Make query for docs');
   let result = await getDocs(q);
   console.log(result);

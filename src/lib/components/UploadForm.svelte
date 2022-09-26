@@ -110,7 +110,7 @@
     <button class="button is-success is-rounded is-dark">Success</button>
   {/if}
 
-  {#if errorMsg !== ''}
+  {#if errorMsg !== '' && !success}
     <div class="notification is-danger">
       {errorMsg}
     </div>

@@ -25,6 +25,10 @@
     flex-direction: column;
   }
 
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
   header,
   footer {
     flex: none;
