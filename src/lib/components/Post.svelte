@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { PostDTO } from 'src/db';
-  import logos from './logos/logos';
+  import logos from './logos';
   export let data: PostDTO;
   let url = data.image as string;
 </script>
@@ -34,14 +34,14 @@
     min-height: 25vh;
   }
 
-  .card .content {
-    overflow-wrap: break-word;
-  }
-
   @media screen and (max-width: 800px) {
     .card {
       width: 80vw;
     }
+  }
+
+  .card .content {
+    overflow-wrap: break-word;
   }
 
   .card .card-image .image img {
