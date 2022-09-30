@@ -1,18 +1,21 @@
 <script lang="ts">
   import type { PostDTO } from 'src/db';
+  import logos from './logos';
   export let data: PostDTO;
   let url = data.image as string;
 </script>
 
 <div class="card">
-  <div class="card-image">
-    <img src={url} alt="Post" />
+  <div class="card-image is-overflow-hidden">
+    <figure class="image">
+      <img src={url} alt="Post" />
+    </figure>
   </div>
 
   <div class="card-content">
     <div class="media">
       <div class="media-content">
-        <p class="title is-4">{data.school}</p>
+        <img src="{logos[data.school]}" alt="{data.school}" title="{data.school}">
       </div>
     </div>
 
@@ -27,18 +30,32 @@
 <style>
   .card {
     margin: 1rem;
-    min-width: 10vw;
-    /* max-height: 10vh; */
+    width: 15vw;
+    min-height: 25vh;
   }
 
-  .card-image {
-    display: flex;
-    justify-content: center;
+  @media screen and (max-width: 800px) {
+    .card {
+      width: 80vw;
+    }
   }
 
-  img {
-    object-fit: scale-down;
-    max-width: 15vw;
-    max-height: 100%;
+  .card .content {
+    overflow-wrap: break-word;
+  }
+
+  .card .card-image .image img {
+    height: 30vh;
+    object-fit: contain;
+  }
+
+  .media-content img {
+    max-width: 32px;
+    max-height: 32px;
+  }
+
+  .media-content img {
+    max-width: 32px;
+    max-height: 32px;
   }
 </style>
