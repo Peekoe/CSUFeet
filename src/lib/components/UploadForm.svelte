@@ -40,7 +40,8 @@
       description: description,
       image: uploadImage,
       likes: 0,
-      pending: true,
+      pending: false,
+      reviewed: false,
       school: school,
       created: Date.now()
     };

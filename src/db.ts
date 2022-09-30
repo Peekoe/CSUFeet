@@ -44,6 +44,7 @@ export type PostDTO = {
   image: File | string;
   likes: number;
   pending: boolean;
+  reviewed: boolean;
   school: string;
   // it's date but number easier
   created: number;
