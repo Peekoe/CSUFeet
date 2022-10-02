@@ -1,6 +1,12 @@
 <script lang="ts">
+  import { prefetch } from '$app/navigation';
+  import { onMount } from 'svelte';
   import Navbar from '$lib/components/Navbar.svelte';
   import Footer from '$lib/components/Footer.svelte';
+
+  onMount(() => {
+    prefetch('/home');
+  });
 </script>
 
 <body>
