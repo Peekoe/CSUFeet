@@ -1,5 +1,5 @@
 import type { FirebaseApp } from 'firebase/app';
-import { initializeApp, getApps} from 'firebase/app';
+import { initializeApp, getApps } from 'firebase/app';
 import { getFirestore, enableIndexedDbPersistence, Firestore } from 'firebase/firestore';
 import type { FirebaseStorage } from 'firebase/storage';
 import { getStorage } from 'firebase/storage';

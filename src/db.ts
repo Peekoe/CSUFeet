@@ -129,11 +129,8 @@ export async function fetchTopPosts(db: Firestore, storage: FirebaseStorage): Pr
   let posts = collection(db, 'posts');
   // add index for orderby later
   let q = query(posts, where('pending', '==', false), limit(24));
-  console.info('Make query for docs');
   let result = await getDocs(q);
-  console.log(result);
   let mapped = result.docs.map((d) => d.data() as PostDTO);
-  console.log(mapped);
   mapped = await getPostImages(storage, mapped);
   return mapped;
 }

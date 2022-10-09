@@ -1,5 +1,5 @@
 <!-- svelte-ignore a11y-missing-attribute -->
-<nav class="navbar" role="navigation" aria-label="main navigation">
+<nav class="navbar" role="navigation" aria-label="main navigation" data-sveltekit-prefetch>
   <div class="navbar-brand">
     <a class="navbar-item" href="/">
       <img src="src/feet.svg" alt="feet logo" height="28" width="28" />

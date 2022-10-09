@@ -30,7 +30,6 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    /* align-items:baseline; */
     overflow-y: auto;
     width: 100vw;
   }
