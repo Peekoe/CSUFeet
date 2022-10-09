@@ -39,7 +39,6 @@
     let post: PostDTO = {
       description: description,
       image: uploadImage,
-      likes: 0,
       pending: false,
       reviewed: false,
       school: school,

@@ -42,7 +42,6 @@ export let Schools = [
 export type PostDTO = {
   description: string;
   image: File | string;
-  likes: number;
   pending: boolean;
   reviewed: boolean;
   school: string;
@@ -89,15 +88,8 @@ async function uploadToFirestore(
   uploadPath: string
 ): Promise<ReturnResult> {
   try {
-    await setDoc(doc(db, 'posts', uploadPath.split('/').pop()), {
-      description: post.description,
-      image: uploadPath,
-      likes: 0,
-      school: post.school,
-      pending: true,
-      created: post.created
-    });
-
+    post.image = uploadPath;
+    await setDoc(doc(db, 'posts', uploadPath.split('/').pop()), post);
     return new ReturnResult(true, 'File upload successful');
   } catch (error) {
     return new ReturnResult(false, (error as Error).message);
