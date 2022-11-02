@@ -7,13 +7,13 @@
 
 <style>
   #hero {
-    background: hsla(28, 100%, 50%, 1);
-    background: linear-gradient(0deg, hsla(209, 100%, 15%, 1) 50%, hsla(28, 100%, 50%, 1) 50%);
-    background: -moz-linear-gradient(0deg, hsla(209, 100%, 15%, 1) 50%, hsla(28, 100%, 50%, 1) 50%);
+    background: var(--main-orange);
+    background: linear-gradient(0deg, var(--main-blue) 50%, var(--main-orange) 50%);
+    background: -moz-linear-gradient(0deg, var(--main-blue) 50%, var(--main-orange) 50%);
     background: -webkit-linear-gradient(
       0deg,
-      hsla(209, 100%, 15%, 1) 50%,
-      hsla(28, 100%, 50%, 1) 50%
+      var(--main-blue) 50%,
+      var(--main-orange) 50%
     );
 
     flex: auto;
@@ -25,9 +25,16 @@
     justify-content: center;
     text-align: left;
     height: 100%;
+    padding: 1rem;
+    
+
+    color: white;
   }
 
   .title {
     font-size: 2.5rem;
+    font-weight: 600;
   }
+
+
 </style>

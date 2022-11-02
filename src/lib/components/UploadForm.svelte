@@ -84,7 +84,6 @@
   </div>
 
   <button
-    class="button is-rounded is-dark"
     on:click={() => {
       fileinput.click();
     }}
@@ -101,13 +100,13 @@
   />
 
   {#if !success && !pending}
-    <button class="button is-rounded is-dark" on:click={uploadToStore}>Submit</button>
+    <button class="normal-btn" on:click={uploadToStore}>Submit</button>
   {:else if pending}
-    <button class="button is-loading is-rounded is-dark">Loading</button>
+    <button class="loading-btn">Loading</button>
   {:else if !success}
-    <button class="button is-danger is-dark" on:click={uploadToStore}>Error</button>
+    <button class="error-btn" on:click={uploadToStore}>Error</button>
   {:else}
-    <button class="button is-success is-rounded is-dark">Success</button>
+    <button class="success-btn">Success</button>
   {/if}
 
   {#if errorMsg !== '' && !success}
@@ -152,5 +151,21 @@
     width: 30vw;
     margin-top: 0.1rem;
     margin-bottom: 1rem;
+  }
+
+  /* .normal-btn {
+    
+  } */
+
+  .loading-btn {
+    background-color: rgb(255, 208, 0);
+  }
+
+  .error-btn {
+    background-color: red;
+  }
+
+  .success-btn {
+    background-color: green;
   }
 </style>

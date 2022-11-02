@@ -1,24 +1,43 @@
-<!-- svelte-ignore a11y-missing-attribute -->
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item" href="/">
-      <img src="src/feet.svg" alt="feet logo" height="28" width="28" />
+<nav class="navbar" aria-label="main navigation">
+  <div class="left">
+    <a href="/">
+      <img src="src/feet.svg" alt="CSUFeet logo" height="28" width="28">
+    </a>
+    
+    <a href="/home">
+      <button class="homeBtn">
+        Home
+      </button>
     </a>
   </div>
 
-  <div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-start">
-      <a href="/home" class="navbar-item"> Home </a>
-    </div>
+  <div class="right">
+    <a href="/upload">
+      <button>
+        Upload
+      </button>
+    </a>
   </div>
 
-  <div class="navbar-end">
-    <div class="navbar-item">
-      <div class="buttons">
-        <a href="/upload" class="button is-primary">
-          <strong>Upload</strong>
-        </a>
-      </div>
-    </div>
-  </div>
 </nav>
+
+<style>
+  a {
+    text-decoration-line: none;
+  }
+
+  .navbar {
+    height: 5vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.2rem;
+  }
+
+  .left {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 10vw;
+  }
+</style>

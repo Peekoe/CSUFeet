@@ -25,7 +25,6 @@
   },
   "type": "module",
   "dependencies": {
-    "bulma": "^0.9.4",
     "dotenv": "^16.0.2",
     "firebase": "^9.9.4"
   }

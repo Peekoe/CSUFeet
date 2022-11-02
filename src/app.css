@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+* {
+  font-family: 'Questrial', sans-serif;
+}
+
+:root {
+  --main-orange: #ff7700;
+  --main-blue: #00284d;
+  --main-button: #ff5900;
+  --main-button-hover: #ea5200;
+}
+
+button {
+  background-color: var(--main-button);
+  border-radius: 0.5rem;
+  border-style: none;
+  box-sizing: border-box;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Open Sans" Helvetica, Arial, sans-serif;
+  line-height: 1rem;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  padding: 0.75rem 1rem;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: 500ms;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+button:hover, button:focus {
+  background-color: var(--main-button-hover);
+}
